@@ -10,7 +10,7 @@
 \setcounter{MaxMatrixCols}{15}
 \usepackage{amssymb}
 \usepackage{enumitem}
-\usepackage{tabularray}
+\usepackage[hidelinks]{hyperref}
 
 \lstset{
   language=Python,
@@ -46,7 +46,7 @@
 
 \author{
 	\textbf{Udugamasooriya P. H. J.}\\
-	220658U\\
+	220658U \quad - \quad \href{https://github.com/pulasthi-u/en3160-assignment01}{GitHub}\\
 }
 
 \date{12 August 2025}
@@ -87,8 +87,6 @@
 		\includegraphics[width=0.9\linewidth]{images/q2.png}
 		\caption{Question 2}
 	\end{figure}
-
-	analysis?
 
 	\item We apply the gamma transformation specified by \[
 		T(x) = 255 \cdot \left(\dfrac{x}{255}\right) ^ \gamma
@@ -208,7 +206,22 @@ T[pixel_value] = np.round(((cumulative_counts[i] - cumulative_counts[0]) / (cumu
 	Let $a$ denote an image, and $b$ and $c$ be two 1D matrices such that we wish to apply the kernel $b \ast c$ to the image $a$. The operation
 	of applying this kernel is $(b \ast c) \star a$. But, by the properties of convolution, \[
 		(b \ast c) \star a = (b \ast c) \ast \bar{a} = b \ast (c \ast \bar{a}) = b \ast (c \star a) = (c \star a) \ast b = (c \star a) \star \bar{b}.
-	\] 
+	\] Hence, the operation of applying the 2D kernel given by the convolution of two 1D kernel is equivalent to that of applying two 1D kernels to the 
+	image as shown above.
+
+	This is exactly what we achieve in these lines of code;
+	\begin{lstlisting}
+row = np.array([[1, 0, -1]])
+col = np.array([[1], [2], [1]])
+row_correlated = my_filter1D(img, row)
+img_sobel_3 = my_filter1D(row_correlated, col)
+	\end{lstlisting}
+
+	The results of the exercise are as follows;
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/q7.png}
+	\end{figure}
 	
 	\item Both forms of interpolation can be implemented in the form of a multiplication of the image on either side by two matrices $L$ and $R$.
 	The structures of these matrices for nearest-neighbor and bilinear interpolation respectively, for a scaling factor of $4$, are given by \[
@@ -278,7 +291,7 @@ The reason for the edges around for the foreground of the enhanced image to appe
 foreground region of the masked-background image due to the blurring.
 
 The results of the exercise are as follows;
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\linewidth]{images/q9.png}
 	\caption{Question 9}
